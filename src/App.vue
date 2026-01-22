@@ -1,32 +1,22 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
-const isActive = ref(true)
-const error = ref(true)
+const awesome = ref(true)
+const ok = ref(false)
 
-const classObject = computed(() => ({
-  active: isActive.value && !error.value,
-  'text-danger': error.value?.type === 'fatal',
-}))
+const type = ref('D')
 </script>
 
 <template>
-  <div class="static" :class="classObject">Text</div>
-  <div class="static" :class="{ active: isActive }">Text</div>
-  <div class="static">Text</div>
-  <div class="static" :class="{ active: isActive }">Text</div>
+  <h1 v-show="ok">Hello!</h1>
+  <button @click="awesome = !awesome">Toggle</button>
+  <h1 v-if="awesome">Vue is awesome!</h1>
+  <h1 v-else>Oh no 😢</h1>
+
+  <div v-if="type === 'A'">A</div>
+  <div v-else-if="type === 'B'">B</div>
+  <div v-else-if="type === 'C'">C</div>
+  <div v-else>Not A/B/C</div>
 </template>
 
-<style scoped>
-.static {
-  background-color: red;
-  width: 200px;
-  height: 20px;
-}
-.active {
-  background-color: aquamarine;
-}
-.text-danger {
-  color: brown;
-}
-</style>
+<style scoped></style>
