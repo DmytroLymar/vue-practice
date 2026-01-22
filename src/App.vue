@@ -1,42 +1,32 @@
 <script setup>
-import { reactive, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
 
-const firstName = ref('John')
-const lastName = ref('Doe')
+const isActive = ref(true)
+const error = ref(true)
 
-const author = reactive({
-  name: 'John Doe',
-  books: ['Vue 2 - Advanced Guide', 'Vue 3 - Basic Guide', 'Vue 4 - The Mystery'],
-})
-
-const setNewName = () => {
-  fullName.value = 'Dave Valentino'
-}
-
-const publishedBooksMessage = computed(() => {
-  return author.books.length > 0 ? 'Yes' : 'No'
-})
-
-const fullName = computed({
-  // getter
-  get() {
-    return firstName.value + ' ' + lastName.value
-  },
-  // setter
-  set(newValue) {
-    // Note: we are using destructuring assignment syntax here.
-    ;[firstName.value, lastName.value] = newValue.split(' ')
-  },
-})
+const classObject = computed(() => ({
+  active: isActive.value && !error.value,
+  'text-danger': error.value?.type === 'fatal',
+}))
 </script>
 
 <template>
-  <div>
-    <p>Fullname: {{ fullName }}</p>
-    <button @click="setNewName">Set new name</button>
-    <p>Has published books:</p>
-    <span>{{ publishedBooksMessage }}</span>
-  </div>
+  <div class="static" :class="classObject">Text</div>
+  <div class="static" :class="{ active: isActive }">Text</div>
+  <div class="static">Text</div>
+  <div class="static" :class="{ active: isActive }">Text</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.static {
+  background-color: red;
+  width: 200px;
+  height: 20px;
+}
+.active {
+  background-color: aquamarine;
+}
+.text-danger {
+  color: brown;
+}
+</style>
