@@ -1,22 +1,50 @@
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
-const awesome = ref(true)
-const ok = ref(false)
+const parentMessage = ref('Parent')
+const items = ref([{ message: 'Foo' }, { message: 'Bar' }])
+const sets = ref([
+  [1, 2, 3, 4, 5],
+  [6, 7, 8, 9, 10],
+])
 
-const type = ref('D')
+function even(numbers) {
+  return numbers.filter((number) => number % 2 === 0)
+}
+
+const myObject = reactive({
+  title: 'How to do lists in Vue',
+  author: 'Jane Doe',
+  publishedAt: '2016-04-10',
+})
 </script>
 
 <template>
-  <h1 v-show="ok">Hello!</h1>
-  <button @click="awesome = !awesome">Toggle</button>
-  <h1 v-if="awesome">Vue is awesome!</h1>
-  <h1 v-else>Oh no 😢</h1>
-
-  <div v-if="type === 'A'">A</div>
-  <div v-else-if="type === 'B'">B</div>
-  <div v-else-if="type === 'C'">C</div>
-  <div v-else>Not A/B/C</div>
+  <ul>
+    <li v-for="({ message }, index) in items" :key="message">
+      {{ parentMessage }} - {{ index }} - {{ message }}
+    </li>
+  </ul>
+  <div class="delimiter"></div>
+  <ul>
+    <li v-for="(value, key, index) in myObject" :key="key">{{ index }}. {{ key }}: {{ value }}</li>
+  </ul>
+  <div class="delimiter"></div>
+  <span v-for="n in 10" :key="n">{{ n }}</span>
+  <div class="delimiter"></div>
+  <ul v-for="numbers in sets" :key="numbers.join('')">
+    <li v-for="n in even(numbers)" :key="n">{{ n }}</li>
+  </ul>
 </template>
 
-<style scoped></style>
+<style scoped>
+.delimiter {
+  width: full;
+  height: 2px;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  background-color: black;
+}
+</style>
