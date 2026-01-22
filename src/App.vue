@@ -1,52 +1,41 @@
-<script>
-import { nextTick } from 'vue'
+<script setup>
+import { reactive, computed, ref } from 'vue'
 
-export default {
-  data() {
-    return {
-      count: 1,
-      msg: 'Hello world!',
-      id: '22',
-      isButtonDisabled: false,
-      seen: true,
-      obj: {
-        nested: { count: 0 },
-        arr: ['foo', 'bar'],
-      },
-    }
-  },
+const firstName = ref('John')
+const lastName = ref('Doe')
 
-  methods: {
-    async increment() {
-      this.count++
-      await nextTick()
-    },
-    mutateDeeply() {
-      // these will work as expected.
-      this.obj.nested.count++
-      this.obj.arr.push('baz')
-    },
-  },
+const author = reactive({
+  name: 'John Doe',
+  books: ['Vue 2 - Advanced Guide', 'Vue 3 - Basic Guide', 'Vue 4 - The Mystery'],
+})
 
-  // `mounted` is a lifecycle hook which we will explain later
-  mounted() {
-    // `this` refers to the component instance.
-    console.log(this.count) // => 1
-
-    // data can be mutated as well
-    this.count = 7
-  },
+const setNewName = () => {
+  fullName.value = 'Dave Valentino'
 }
+
+const publishedBooksMessage = computed(() => {
+  return author.books.length > 0 ? 'Yes' : 'No'
+})
+
+const fullName = computed({
+  // getter
+  get() {
+    return firstName.value + ' ' + lastName.value
+  },
+  // setter
+  set(newValue) {
+    // Note: we are using destructuring assignment syntax here.
+    ;[firstName.value, lastName.value] = newValue.split(' ')
+  },
+})
 </script>
 
 <template>
-  <div :id>
-    <button :disabled="isButtonDisabled" @click="increment">{{ count }}</button>
-    <p>Message: {{ msg }}</p>
-    <p v-if="seen">Now you see me</p>
-    <p>deep count: {{ obj.nested.count }}</p>
-    <p>deep arr: {{ obj.arr.join(' ') }}</p>
-    <button @click="mutateDeeply">Deep mutate</button>
+  <div>
+    <p>Fullname: {{ fullName }}</p>
+    <button @click="setNewName">Set new name</button>
+    <p>Has published books:</p>
+    <span>{{ publishedBooksMessage }}</span>
   </div>
 </template>
 
