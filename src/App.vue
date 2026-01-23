@@ -1,32 +1,17 @@
 <script setup>
-import { ref } from 'vue'
-import { defineAsyncComponent } from 'vue'
+import Modal from '@/components/Modal.vue'
+import { useModal } from '@/composables/useModal'
 
-import LoadingBox from './components/LoadingBox.vue'
-import ErrorBox from './components/ErrorBox.vue'
-
-const isOpen = ref(false)
-
-// async component wrapper
-const AsyncHeavyModal = defineAsyncComponent({
-  loader: () => import('./components/HeavyModal.vue'),
-  loadingComponent: LoadingBox,
-  delay: 200,
-  // simple error component
-  errorComponent: ErrorBox,
-  timeout: 4000,
-})
+const { isOpen, open, close } = useModal()
 </script>
 
 <template>
-  <div class="page">
-    <h2>Async Component demo</h2>
+  <button @click="open">Open modal</button>
 
-    <button @click="isOpen = true">Open modal (lazy)</button>
-
-    <!-- the modal chunk is requested ONLY when this renders -->
-    <AsyncHeavyModal v-if="isOpen" title="Async modal" @close="isOpen = false" />
-  </div>
+  <Modal :open="isOpen" @close="close">
+    <h3>Hello 👋</h3>
+    <p>This modal uses a composable</p>
+  </Modal>
 </template>
 
 <style scoped>
