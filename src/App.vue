@@ -1,29 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import CounterButton from './CounterButton.vue'
-import BaseInput from './BaseInput.vue'
-import Child from './Child.vue'
-
-const count = ref(0)
-const email = ref('')
-const countModel = ref(0)
-
-function increment() {
-  count.value++
-}
-
-function decrement() {
-  count.value--
-}
+import BaseLayout from './BaseLayout.vue'
 </script>
 
 <template>
-  <h1>Parent Counter</h1>
+  <BaseLayout>
+    <template #header>
+      <h1>This is the header</h1>
+    </template>
 
-  <CounterButton :count="count" @increment="increment" @decrement="decrement" />
+    <template #default>
+      <p>This is the content</p>
+    </template>
 
-  <BaseInput v-model="email" />
-  <p>{{ email }}</p>
-
-  <Child v-model="countModel" />
+    <template #footer>
+      <em>This is the footer</em>
+    </template>
+  </BaseLayout>
 </template>
