@@ -1,12 +1,7 @@
 <script setup>
-const model = defineModel()
-
-function update() {
-  model.value++
-}
+import GrandChild from './GrandChild.vue'
 </script>
 
 <template>
-  <div>Parent bound v-model is: {{ model }}</div>
-  <button @click="update">Increment</button>
+  <GrandChild />
 </template>

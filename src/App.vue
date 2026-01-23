@@ -1,19 +1,14 @@
-<script setup lang="ts">
-import BaseLayout from './BaseLayout.vue'
+<script setup>
+import { ref, provide } from 'vue'
+import Child from './Child.vue'
+
+// by providing a ref, the GrandChild
+// can react to changes happening here.
+const message = ref('hello')
+provide('message', message)
 </script>
 
 <template>
-  <BaseLayout>
-    <template #header>
-      <h1>This is the header</h1>
-    </template>
-
-    <template #default>
-      <p>This is the content</p>
-    </template>
-
-    <template #footer>
-      <em>This is the footer</em>
-    </template>
-  </BaseLayout>
+  <input v-model="message" />
+  <Child />
 </template>
