@@ -1,8 +1,4 @@
-<script setup>
-import AlertBox from './AlertBox.vue'
-import BlogPost from './BlogPost.vue'
-import ButtonCounter from './ButtonCounter.vue'
-</script>
+<script setup></script>
 
 <template>
   <ButtonCounter />
