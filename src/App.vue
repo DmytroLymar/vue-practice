@@ -1,27 +1,21 @@
-<script setup>
-import Modal from '@/components/Modal.vue'
-import { useModal } from '@/composables/useModal'
+<script setup lang="ts">
+import { ref } from 'vue'
+import Modal from './components/Modal.vue'
 
-const { isOpen, open, close } = useModal()
+const isOpen = ref(false)
 </script>
 
 <template>
-  <button @click="open">Open modal</button>
+  <div style="padding: 24px;">
+    <button @click="isOpen = true">Open modal</button>
 
-  <Modal :open="isOpen" @close="close">
-    <h3>Hello 👋</h3>
-    <p>This modal uses a composable</p>
-  </Modal>
+    <Modal
+      :open="isOpen"
+      title="Confirm action"
+      @close="isOpen = false"
+    >
+    <p>Transition + props + emit.</p>
+      <p>✕ or ESC to close</p>
+    </Modal>
+  </div>
 </template>
-
-<style scoped>
-.page {
-  padding: 18px;
-  display: grid;
-  gap: 12px;
-}
-button {
-  width: fit-content;
-  padding: 8px 12px;
-}
-</style>
