@@ -2,12 +2,13 @@
 import { ref } from 'vue'
 import ComponentA from './components/ComponentA.vue'
 import ComponentB from './components/ComponentB.vue'
+import TeleportedModal from './components/TeleportedModal.vue'
 
 const current = ref('ComponentA')
 
 const components = {
   ComponentA,
-  ComponentB
+  ComponentB,
 }
 </script>
 
@@ -18,4 +19,5 @@ const components = {
   <KeepAlive>
     <component :is="components[current]"></component>
   </KeepAlive>
+  <TeleportedModal />
 </template>
