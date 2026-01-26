@@ -1,23 +1,21 @@
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue'
-import Modal from './components/Modal.vue'
-import TransitionExample from './components/TransitionExample.vue';
+import ComponentA from './components/ComponentA.vue'
+import ComponentB from './components/ComponentB.vue'
 
-const isOpen = ref(false)
+const current = ref('ComponentA')
+
+const components = {
+  ComponentA,
+  ComponentB
+}
 </script>
 
 <template>
-  <div style="padding: 24px;">
-    <button @click="isOpen = true">Open modal</button>
+  <label><input type="radio" v-model="current" value="ComponentA" /> A</label>
+  <label><input type="radio" v-model="current" value="ComponentB" /> B</label>
 
-    <Modal
-      :open="isOpen"
-      title="Confirm action"
-      @close="isOpen = false"
-    >
-    <p>Transition + props + emit.</p>
-      <p>✕ or ESC to close</p>
-    </Modal>
-    <TransitionExample/>
-  </div>
+  <KeepAlive>
+    <component :is="components[current]"></component>
+  </KeepAlive>
 </template>
