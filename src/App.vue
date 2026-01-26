@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Modal from './components/Modal.vue'
+import TransitionExample from './components/TransitionExample.vue';
 
 const isOpen = ref(false)
 </script>
@@ -17,5 +18,6 @@ const isOpen = ref(false)
     <p>Transition + props + emit.</p>
       <p>✕ or ESC to close</p>
     </Modal>
+    <TransitionExample/>
   </div>
 </template>
