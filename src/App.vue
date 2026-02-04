@@ -1,13 +1,23 @@
 <script setup>
-import Dashboard from './components/dashboard/Dashboard.vue'
+import { ref } from 'vue'
+import ComponentA from './components/ComponentA.vue'
+import ComponentB from './components/ComponentB.vue'
+import TeleportedModal from './components/TeleportedModal.vue'
+
+const current = ref('ComponentA')
+
+const components = {
+  ComponentA,
+  ComponentB,
+}
 </script>
 
 <template>
-  <Suspense>
-    <Dashboard />
+  <label><input type="radio" v-model="current" value="ComponentA" /> A</label>
+  <label><input type="radio" v-model="current" value="ComponentB" /> B</label>
 
-    <template #fallback>
-      <p>Loading dashboard...</p>
-    </template>
-  </Suspense>
+  <KeepAlive>
+    <component :is="components[current]"></component>
+  </KeepAlive>
+  <TeleportedModal />
 </template>
