@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    /* ====== Base ====== */
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+
+    /* ====== Module Resolution ====== */
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+
+    /* ====== Vue / TS Interop ====== */
+    "jsx": "preserve",
+    "useDefineForClassFields": true,
+
+    /* ====== Strictness ====== */
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+
+    /* ====== Quality ====== */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* ====== Output ====== */
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+
+    /* ====== Paths (optional but recommended) ====== */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
+    /* ====== Types ====== */
+    "types": ["vite/client"]
+  },
+
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+
+  "exclude": ["node_modules", "dist"]
+}

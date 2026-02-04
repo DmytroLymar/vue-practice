@@ -1,15 +1,23 @@
-<script>
-export default {
-  data() {
-    return {
-      count: 0,
-    }
-  },
+<script setup>
+import { ref } from 'vue'
+import ComponentA from './components/ComponentA.vue'
+import ComponentB from './components/ComponentB.vue'
+import TeleportedModal from './components/TeleportedModal.vue'
+
+const current = ref('ComponentA')
+
+const components = {
+  ComponentA,
+  ComponentB,
 }
 </script>
 
 <template>
-  <button @click="count++">{{ count }}</button>
-</template>
+  <label><input type="radio" v-model="current" value="ComponentA" /> A</label>
+  <label><input type="radio" v-model="current" value="ComponentB" /> B</label>
 
-<style scoped></style>
+  <KeepAlive>
+    <component :is="components[current]"></component>
+  </KeepAlive>
+  <TeleportedModal />
+</template>
